@@ -10,6 +10,12 @@ import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 const LINE =
   "Just describe the app idea you have been carrying around in plain words, and an AI agent on make.fun will build you a working version to try today — no coding, no jargon, and you can change anything until it feels like yours.";
 
+// The gate requires 1 to 240 characters of non-blank UTF-8 text; refuse
+// to write anything that would fail it instead of submitting an invalid entry.
+if ([...LINE].length < 1 || [...LINE].length > 240 || LINE.trim().length === 0) {
+  throw new Error(`entry line is ${[...LINE].length} characters, outside the 1-240 gate`);
+}
+
 const outDir = "/output";
 mkdirSync(outDir, { recursive: true, mode: 0o755 });
 const outPath = `${outDir}/entry.txt`;
