@@ -1,0 +1,1 @@
+Seed file. The entry history lives on the master branch; this file only exists so the Git Data API can create blobs in an otherwise empty repository.
